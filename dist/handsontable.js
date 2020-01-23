@@ -28,8 +28,8 @@
  * INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER ARISING
  * FROM USE OR INABILITY TO USE THIS SOFTWARE.
  * 
- * Version: 7.3.0
- * Release date: 12/12/2019 (built at 12/12/2019 14:21:24)
+ * Version: 7.3.0-alpha.0
+ * Release date: 12/12/2019 (built at 24/01/2020 09:25:54)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -4064,7 +4064,7 @@ var domMessages = {
 function _injectProductInfo(key, element) {
   var hasValidType = !isEmpty(key);
   var isNonCommercial = typeof key === 'string' && key.toLowerCase() === 'non-commercial-and-evaluation';
-  var hotVersion = "7.3.0";
+  var hotVersion = "7.3.0-alpha.0";
   var keyValidityDate;
   var consoleMessageState = 'invalid';
   var domMessageState = 'invalid';
@@ -39697,8 +39697,8 @@ Handsontable.EventManager = _eventManager.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
 Handsontable.packageName = 'handsontable';
-Handsontable.buildDate = "12/12/2019 14:21:24";
-Handsontable.version = "7.3.0"; // Export Hooks singleton
+Handsontable.buildDate = "24/01/2020 09:25:54";
+Handsontable.version = "7.3.0-alpha.0"; // Export Hooks singleton
 
 Handsontable.hooks = _pluginHooks.default.getSingleton(); // TODO: Remove this exports after rewrite tests about this module
 
@@ -44668,9 +44668,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__330__;
 
 /***/ }),
 /* 331 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 /* 332 */
