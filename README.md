@@ -1,3 +1,29 @@
+# Displayr Version of Handsontable
+
+This is a fork of handsontable [https://github.com/handsontable/handsontable](https://github.com/handsontable/handsontable) that fixes a bug we are getting reports for. The fixes are on branch "displayrversion".
+
+From a versioning perspective, I will use the same versioning as handsontable. So e.g. this is based off 7.3.0 I will use that version too in package.json. If we update this to a new version, you will want to update the package.json version (this should happen anyway when you merge in newer changes) so that you can
+publish a new NPM package.
+
+To publish:
+
+1. Make sure your local env variable NPM_TOKEN is set to get access to publish to the repo.
+
+2. Set the version in package.json
+
+3. Run these commands from the root folder:
+
+```
+npm i
+npm run release
+```
+
+4. Please tag what you have release in Github with the version number!
+
+The original README.MD content is below.
+
+# Original Readme...
+
 <div align="center">
   <a href="//handsontable.com" target="_blank"><img src="https://raw.githubusercontent.com/handsontable/static-files/master/Images/Logo/Handsontable/Handsontable-logo-300-74-new.png" alt="Handsontable Community Edition logo" /></a>
 </div>
