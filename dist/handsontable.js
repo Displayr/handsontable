@@ -28,8 +28,8 @@
  * INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER ARISING
  * FROM USE OR INABILITY TO USE THIS SOFTWARE.
  * 
- * Version: 7.3.0-alpha.0
- * Release date: 12/12/2019 (built at 24/01/2020 09:25:54)
+ * Version: 7.3.0
+ * Release date: 12/12/2019 (built at 24/01/2020 11:17:01)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -4064,7 +4064,7 @@ var domMessages = {
 function _injectProductInfo(key, element) {
   var hasValidType = !isEmpty(key);
   var isNonCommercial = typeof key === 'string' && key.toLowerCase() === 'non-commercial-and-evaluation';
-  var hotVersion = "7.3.0-alpha.0";
+  var hotVersion = "7.3.0";
   var keyValidityDate;
   var consoleMessageState = 'invalid';
   var domMessageState = 'invalid';
@@ -39697,8 +39697,8 @@ Handsontable.EventManager = _eventManager.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
 Handsontable.packageName = 'handsontable';
-Handsontable.buildDate = "24/01/2020 09:25:54";
-Handsontable.version = "7.3.0-alpha.0"; // Export Hooks singleton
+Handsontable.buildDate = "24/01/2020 11:17:01";
+Handsontable.version = "7.3.0"; // Export Hooks singleton
 
 Handsontable.hooks = _pluginHooks.default.getSingleton(); // TODO: Remove this exports after rewrite tests about this module
 
@@ -62778,11 +62778,13 @@ function (_BasePlugin) {
       if (element !== this.hot.rootElement) {
         var parent = element.parentNode;
 
-        if (parent.tagName === 'THEAD') {
-          return true;
-        }
+        if (parent) {
+          if (parent.tagName === 'THEAD') {
+            return true;
+          }
 
-        return this.checkIfColumnHeader(parent);
+          return this.checkIfColumnHeader(parent);
+        }
       }
 
       return false;
@@ -62798,12 +62800,14 @@ function (_BasePlugin) {
   }, {
     key: "getTHFromTargetElement",
     value: function getTHFromTargetElement(element) {
-      if (element.tagName !== 'TABLE') {
-        if (element.tagName === 'TH') {
-          return element;
-        }
+      if (element) {
+        if (element.tagName !== 'TABLE') {
+          if (element.tagName === 'TH') {
+            return element;
+          }
 
-        return this.getTHFromTargetElement(element.parentNode);
+          return this.getTHFromTargetElement(element.parentNode);
+        }
       }
 
       return null;

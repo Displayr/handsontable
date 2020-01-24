@@ -253,11 +253,13 @@ class ManualColumnResize extends BasePlugin {
     if (element !== this.hot.rootElement) {
       const parent = element.parentNode;
 
-      if (parent.tagName === 'THEAD') {
-        return true;
-      }
+      if (parent) {
+        if (parent.tagName === 'THEAD') {
+          return true;
+        }
 
-      return this.checkIfColumnHeader(parent);
+        return this.checkIfColumnHeader(parent);
+      }
     }
 
     return false;
@@ -271,12 +273,14 @@ class ManualColumnResize extends BasePlugin {
    * @returns {HTMLElement}
    */
   getTHFromTargetElement(element) {
-    if (element.tagName !== 'TABLE') {
-      if (element.tagName === 'TH') {
-        return element;
-      }
-      return this.getTHFromTargetElement(element.parentNode);
+    if (element) {
+      if (element.tagName !== 'TABLE') {
+        if (element.tagName === 'TH') {
+          return element;
+        }
+        return this.getTHFromTargetElement(element.parentNode);
 
+      }
     }
 
     return null;
