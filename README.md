@@ -2,7 +2,7 @@
 
 This is a fork of handsontable [https://github.com/handsontable/handsontable](https://github.com/handsontable/handsontable) that fixes a bug we are getting reports for. The fixes are on branch "displayrversion".
 
-From a versioning perspective, I will use the same versioning as handsontable. So e.g. this is based off 7.3.0 I will use that version too in package.json. If we update this to a new version, you will want to update the package.json version (this should happen anyway when you merge in newer changes) so that you can
+From a versioning perspective, I will use the same versioning as handsontable. So e.g. this is based off 6.2.2 I will use that version too in package.json. If we update this to a new version, you will want to update the package.json version (this should happen anyway when you merge in newer changes) so that you can
 publish a new NPM package.
 
 To publish:
@@ -14,8 +14,7 @@ To publish:
 3. Run these commands from the root folder:
 
 ```
-npm i
-npm run release
+npm i;npm run clean;npm run build;npm publish
 ```
 
 4. Please tag what you have release in Github with the version number!

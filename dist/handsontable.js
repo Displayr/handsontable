@@ -24,7 +24,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  * Version: 6.2.2
- * Release date: 19/12/2018 (built at 18/12/2018 14:40:17)
+ * Release date: 19/12/2018 (built at 24/01/2020 13:19:18)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -29734,8 +29734,8 @@ Handsontable.DefaultSettings = _defaultSettings.default;
 Handsontable.EventManager = _eventManager.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
-Handsontable.buildDate = "18/12/2018 14:40:17";
-Handsontable.packageName = "handsontable";
+Handsontable.buildDate = "24/01/2020 13:19:18";
+Handsontable.packageName = "@displayr/handsontable";
 Handsontable.version = "6.2.2";
 var baseVersion = "";
 
@@ -36790,7 +36790,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_370__;
 /* 371 */
 /***/ (function(module, exports) {
 
-
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 372 */
@@ -56004,11 +56004,13 @@ function (_BasePlugin) {
       if (element !== this.hot.rootElement) {
         var parent = element.parentNode;
 
-        if (parent.tagName === 'THEAD') {
-          return true;
-        }
+        if (parent) {
+          if (parent.tagName === 'THEAD') {
+            return true;
+          }
 
-        return this.checkIfColumnHeader(parent);
+          return this.checkIfColumnHeader(parent);
+        }
       }
 
       return false;
@@ -56024,12 +56026,14 @@ function (_BasePlugin) {
   }, {
     key: "getTHFromTargetElement",
     value: function getTHFromTargetElement(element) {
-      if (element.tagName !== 'TABLE') {
-        if (element.tagName === 'TH') {
-          return element;
-        }
+      if (element) {
+        if (element.tagName !== 'TABLE') {
+          if (element.tagName === 'TH') {
+            return element;
+          }
 
-        return this.getTHFromTargetElement(element.parentNode);
+          return this.getTHFromTargetElement(element.parentNode);
+        }
       }
 
       return null;
