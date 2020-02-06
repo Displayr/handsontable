@@ -24,7 +24,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  * Version: 6.2.2
- * Release date: 19/12/2018 (built at 24/01/2020 13:19:18)
+ * Release date: 19/12/2018 (built at 07/02/2020 09:51:50)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -29734,8 +29734,8 @@ Handsontable.DefaultSettings = _defaultSettings.default;
 Handsontable.EventManager = _eventManager.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
-Handsontable.buildDate = "24/01/2020 13:19:18";
-Handsontable.packageName = "@displayr/handsontable";
+Handsontable.buildDate = "07/02/2020 09:51:50";
+Handsontable.packageName = "@displayr/displayrhandsontable";
 Handsontable.version = "6.2.2";
 var baseVersion = "";
 

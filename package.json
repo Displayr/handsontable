@@ -1,5 +1,5 @@
 {
-  "name": "@displayr/handsontable",
+  "name": "@displayr/displayrhandsontable",
   "description": "Handsontable is a JavaScript Spreadsheet Component available for React, Angular and Vue.",
   "homepage": "https://handsontable.com/",
   "repository": {
