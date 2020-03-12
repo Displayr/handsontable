@@ -7,7 +7,7 @@ publish a new NPM package.
 
 To publish:
 
-* Set the version in package.json
+* Set the version in package.json, i.e. use 6.2.2+displayr.X where X is higher than previous X.
 
 * Run these commands from the root folder:
 
@@ -21,7 +21,7 @@ npm i;npm run clean;npm run build
 
 * Test
 
-* Tag commit based version off original fork, i.e. use 6.2.2.X where X is higher than previous X.
+* Tag commit based version off original fork, i.e. use 6.2.2+displayr.X where X is higher than previous X. (as per version number above)
 
 * Push branch and tag
 
