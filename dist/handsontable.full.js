@@ -23,8 +23,8 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
- * Version: 6.2.2
- * Release date: 19/12/2018 (built at 07/02/2020 09:51:50)
+ * Version: 6.2.2+displayr.0
+ * Release date: 19/12/2018 (built at 12/03/2020 14:03:43)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -45945,9 +45945,9 @@ Handsontable.DefaultSettings = _defaultSettings.default;
 Handsontable.EventManager = _eventManager.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
-Handsontable.buildDate = "07/02/2020 09:51:50";
+Handsontable.buildDate = "12/03/2020 14:03:43";
 Handsontable.packageName = "@displayr/displayrhandsontable";
-Handsontable.version = "6.2.2";
+Handsontable.version = "6.2.2+displayr.0";
 var baseVersion = "";
 
 if (baseVersion) {
@@ -70364,6 +70364,11 @@ function tableToArray(element) {
         cell.innerHTML = cell.innerHTML.trim().replace(/<br(.|)>(\n?)/, '\n');
         var cellText = cell.innerText;
         newRow.push(cellText);
+
+        while (cell.colSpan > 1) {
+          newRow.push("");
+          cell.colSpan--;
+        }
       }
 
       tempArray.push(newRow);

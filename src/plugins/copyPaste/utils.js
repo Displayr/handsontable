@@ -81,6 +81,11 @@ export function tableToArray(element) {
         const cellText = cell.innerText;
 
         newRow.push(cellText);
+        
+        while (cell.colSpan > 1) {
+          newRow.push("");
+          cell.colSpan--;
+        }
       }
 
       tempArray.push(newRow);

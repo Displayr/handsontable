@@ -10,7 +10,7 @@
     "url": "https://github.com/handsontable/handsontable/issues"
   },
   "author": "Handsoncode <hello@handsontable.com>",
-  "version": "6.2.2",
+  "version": "6.2.2+displayr.0",
   "browser": "dist/handsontable.js",
   "main": "commonjs/index.js",
   "module": "es/index.js",
@@ -40,8 +40,7 @@
     "build:walkontable": "cross-env BABEL_ENV=commonjs NODE_ENV=walkontable env-cmd ./hot.config.js webpack --hide-modules ./src/3rdparty/walkontable/src/index.js",
     "build:languages": "cross-env BABEL_ENV=commonjs NODE_ENV=languages-development env-cmd ./hot.config.js webpack",
     "build:languages.min": "cross-env BABEL_ENV=commonjs NODE_ENV=languages-production env-cmd ./hot.config.js webpack",
-    "watch": "cross-env BABEL_ENV=commonjs NODE_ENV=watch env-cmd ./hot.config.js webpack --hide-modules --watch src/index.js",
-    "prepublish": "npm run clean && npm run build:commonjs && npm run build:es"
+    "watch": "cross-env BABEL_ENV=commonjs NODE_ENV=watch env-cmd ./hot.config.js webpack --hide-modules --watch src/index.js"
   },
   "keywords": [
     "data",
