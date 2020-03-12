@@ -7,17 +7,25 @@ publish a new NPM package.
 
 To publish:
 
-1. Make sure your local env variable NPM_TOKEN is set to get access to publish to the repo.
+* Set the version in package.json
 
-2. Set the version in package.json
-
-3. Run these commands from the root folder:
+* Run these commands from the root folder:
 
 ```
-npm i;npm run clean;npm run build;npm publish
+npm i;npm run clean;npm run build
 ```
 
-4. Please tag what you have release in Github with the version number!
+* This will change files for distribution which get commited to the repo
+
+* Commit locally
+
+* Test
+
+* Tag commit based version off original fork, i.e. use 6.2.2.X where X is higher than previous X.
+
+* Push branch and tag
+
+* Update q\SharedWebUi\modules\package.json to copy assets from version. See `download-static-files` script. There will be more than 1 thing copied so update them all.
 
 The original README.MD content is below.
 
