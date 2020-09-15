@@ -483,12 +483,19 @@ class CopyPaste extends BasePlugin {
     let pastedData;
 
     if (event && typeof event.clipboardData !== 'undefined') {
-      const textHTML = event.clipboardData.getData('text/html');
 
-      if (textHTML && /(<table)|(<TABLE)/.test(textHTML)) {
-        pastedData = tableToArray(textHTML);
-      } else {
-        pastedData = event.clipboardData.getData('text/plain');
+      // RS-7049: Formatting is wrong sometimes when HTML is pasted rather than plaintext
+      // because the HTML from excel is just what's displayed, not necessarily the data
+      // so prefer plaintext first, and get html if that's not possible.
+      pastedData = event.clipboardData.getData('text/plain');
+
+      if (!pastedData) {
+        const textHTML = event.clipboardData.getData('text/html');
+        if (textHTML && /(<table)|(<TABLE)/.test(textHTML)) {
+          pastedData = tableToArray(textHTML);
+        } else {
+          throw new Error('Copied data did not contain plaintext or valid html.');
+        }
       }
 
     } else if (typeof ClipboardEvent === 'undefined' && typeof window.clipboardData !== 'undefined') {

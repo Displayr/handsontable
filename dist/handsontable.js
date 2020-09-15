@@ -24,7 +24,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  * Version: 6.2.2+displayr.0
- * Release date: 19/12/2018 (built at 12/03/2020 14:03:43)
+ * Release date: 19/12/2018 (built at 15/09/2020 11:45:43)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -29734,7 +29734,7 @@ Handsontable.DefaultSettings = _defaultSettings.default;
 Handsontable.EventManager = _eventManager.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
-Handsontable.buildDate = "12/03/2020 14:03:43";
+Handsontable.buildDate = "15/09/2020 11:45:43";
 Handsontable.packageName = "@displayr/displayrhandsontable";
 Handsontable.version = "6.2.2+displayr.0";
 var baseVersion = "";
@@ -52096,12 +52096,19 @@ function (_BasePlugin) {
       var pastedData;
 
       if (event && typeof event.clipboardData !== 'undefined') {
-        var textHTML = event.clipboardData.getData('text/html');
+        // RS-7049: Formatting is wrong sometimes when HTML is pasted rather than plaintext
+        // because the HTML from excel is just what's displayed, not necessarily the data
+        // so prefer plaintext first, and get html if that's not possible.
+        pastedData = event.clipboardData.getData('text/plain');
 
-        if (textHTML && /(<table)|(<TABLE)/.test(textHTML)) {
-          pastedData = (0, _utils.tableToArray)(textHTML);
-        } else {
-          pastedData = event.clipboardData.getData('text/plain');
+        if (!pastedData) {
+          var textHTML = event.clipboardData.getData('text/html');
+
+          if (textHTML && /(<table)|(<TABLE)/.test(textHTML)) {
+            pastedData = (0, _utils.tableToArray)(textHTML);
+          } else {
+            throw new Error('Copied data did not contain plaintext or valid html.');
+          }
         }
       } else if (typeof ClipboardEvent === 'undefined' && typeof window.clipboardData !== 'undefined') {
         pastedData = window.clipboardData.getData('Text');
