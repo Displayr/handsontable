@@ -23,8 +23,8 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
- * Version: 6.2.2+displayr.0
- * Release date: 19/12/2018 (built at 15/09/2020 11:45:43)
+ * Version: 6.2.2+displayr.1
+ * Release date: 19/12/2018 (built at 18/09/2020 11:54:32)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -45945,9 +45945,9 @@ Handsontable.DefaultSettings = _defaultSettings.default;
 Handsontable.EventManager = _eventManager.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
-Handsontable.buildDate = "15/09/2020 11:45:43";
+Handsontable.buildDate = "18/09/2020 11:54:32";
 Handsontable.packageName = "@displayr/displayrhandsontable";
-Handsontable.version = "6.2.2+displayr.0";
+Handsontable.version = "6.2.2+displayr.1";
 var baseVersion = "";
 
 if (baseVersion) {
