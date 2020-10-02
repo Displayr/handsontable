@@ -23,8 +23,8 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
- * Version: 6.2.2+displayr.1
- * Release date: 19/12/2018 (built at 18/09/2020 11:54:32)
+ * Version: 6.2.2+displayr.2
+ * Release date: 19/12/2018 (built at 02/10/2020 10:31:42)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -24864,6 +24864,7 @@ function getNormalizedDate(dateString) {
   "use strict";
 
   function countQuotes(str) {
+    //TODO remove if not used
     return str.split('"').length - 1;
   }
 
@@ -24875,55 +24876,138 @@ function getNormalizedDate(dateString) {
      * @returns {Array}
      */
     parse: function parse(str) {
-      var r,
-          rLen,
-          rows,
-          arr = [],
-          a = 0,
-          c,
-          cLen,
-          multiline,
-          last;
-      rows = str.replace(/\r\n|\r/g, '\n').split('\n');
+      var row_delimeter = '\n';
+      var col_delimeter = '\t';
+      var quote = '"';
+      var a = [];
+      var r = 0;
+      var c = 0;
+      var in_field = false;
+      var in_quotes = false;
+      var needed_quotes = false;
+      a[r] = [];
 
-      if (rows.length > 1 && rows[rows.length - 1] === '') {
-        rows.pop();
-      }
+      for (var i = 0; i < str.length; i++) {
+        if (in_field) {
+          // every other char
+          if (in_quotes) {
+            // in a quoted field
+            if (str[i] == quote) {
+              // possible end quote
+              if (i === str.length - 1 || str[i + 1] === row_delimeter || str[i + 1] === col_delimeter) {
+                // end quote
+                in_quotes = false;
 
-      for (r = 0, rLen = rows.length; r < rLen; r += 1) {
-        rows[r] = rows[r].split('\t');
+                if (!needed_quotes) {
+                  // change quoted string to non-quoted
+                  a[r][c] = quote + a[r][c].replace(quote, quote + quote) + quote;
+                  var temp = a[r][c].split(row_delimeter).map(function (line) {
+                    return line.split(col_delimeter);
+                  });
 
-        for (c = 0, cLen = rows[r].length; c < cLen; c += 1) {
-          if (!arr[a]) {
-            arr[a] = [];
-          }
+                  for (var j = 0; j < temp.length; j++) {
+                    if (j !== 0) {
+                      r++;
+                      c = 0;
+                      a[r] = [];
+                    }
 
-          if (multiline && c === 0) {
-            last = arr[a].length - 1;
-            arr[a][last] = arr[a][last] + '\n' + rows[r][0];
+                    for (var k = 0; k < temp[j].length; k++) {
+                      if (k !== 0) {
+                        c++;
+                      }
 
-            if (multiline && countQuotes(rows[r][0]) & 1) {
-              //& 1 is a bitwise way of performing mod 2
-              multiline = false;
-              arr[a][last] = arr[a][last].substring(0, arr[a][last].length - 1).replace(/""/g, '"');
+                      a[r][c] = temp[j][k];
+                    }
+                  }
+                }
+              } else if (str[i + 1] === quote) {
+                // escaped quote
+                i++;
+                a[r][c] += quote;
+              } else {
+                // shouldn't be a quoted string
+                in_quotes = false; // change quoted string to non-quoted
+
+                a[r][c] = quote + a[r][c].replace(quote, quote + quote) + quote;
+
+                var _temp = a[r][c].split(row_delimeter).map(function (line) {
+                  return line.split(col_delimeter);
+                });
+
+                for (var j = 0; j < _temp.length; j++) {
+                  if (j !== 0) {
+                    r++;
+                    c = 0;
+                    a[r] = [];
+                  }
+
+                  for (var k = 0; k < _temp[j].length; k++) {
+                    if (k !== 0) {
+                      c++;
+                    }
+
+                    a[r][c] = _temp[j][k];
+                  }
+                }
+              }
+            } else {
+              // add to this field
+              a[r][c] += str[i];
+
+              if (str[i] === row_delimeter || str[i] === col_delimeter) {
+                // it needed quotes
+                needed_quotes = true;
+              }
             }
           } else {
-            if (c === cLen - 1 && rows[r][c].indexOf('"') === 0 && countQuotes(rows[r][c]) & 1) {
-              arr[a].push(rows[r][c].substring(1).replace(/""/g, '"'));
-              multiline = true;
+            // in a not-quoted field
+            if (str[i] === row_delimeter) {
+              // new row
+              r++;
+              c = 0;
+              a[r] = [];
+              in_field = false;
+            } else if (str[i] === col_delimeter) {
+              // next column
+              c++;
+              in_field = false;
             } else {
-              arr[a].push(rows[r][c].replace(/""/g, '"'));
-              multiline = false;
+              // add to this field
+              a[r][c] += str[i];
             }
           }
-        }
+        } else {
+          // first char of field
+          in_field = true;
 
-        if (!multiline) {
-          a += 1;
+          if (str[i] === quote) {
+            // start of quoted field
+            a[r][c] = '';
+            in_quotes = true;
+          } else {
+            if (str[i] === row_delimeter || str[i] === col_delimeter) {
+              // empty field
+              a[r][c] = '';
+              i--;
+            } else {
+              // start of non-quoted field
+              a[r][c] = str[i];
+            }
+
+            in_quotes = false;
+          }
+
+          needed_quotes = false;
         }
       }
 
-      return arr;
+      if (a[r].length === 0) {
+        // remove empty last row (happens when str finishes with a row_delimeter)
+        a.pop();
+      }
+
+      return a;
     },
 
     /**
@@ -29734,9 +29818,9 @@ Handsontable.DefaultSettings = _defaultSettings.default;
 Handsontable.EventManager = _eventManager.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
-Handsontable.buildDate = "18/09/2020 11:54:32";
+Handsontable.buildDate = "02/10/2020 10:31:42";
 Handsontable.packageName = "@displayr/displayrhandsontable";
-Handsontable.version = "6.2.2+displayr.1";
+Handsontable.version = "6.2.2+displayr.2";
 var baseVersion = "";
 
 if (baseVersion) {
