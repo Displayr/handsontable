@@ -493,9 +493,6 @@ class CopyPaste extends BasePlugin {
         const textHTML = event.clipboardData.getData('text/html');
         if (textHTML && /(<table)|(<TABLE)/.test(textHTML)) {
           pastedData = tableToArray(textHTML);
-        } else {
-          // probably this means the clipboard is empty or contains something pretty bizarre - just ignore it
-          return;
         }
       }
 
