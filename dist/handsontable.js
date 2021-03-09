@@ -23,8 +23,8 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
- * Version: 6.2.2+displayr.2
- * Release date: 19/12/2018 (built at 02/10/2020 10:31:42)
+ * Version: 6.2.2+displayr.3
+ * Release date: 19/12/2018 (built at 09/03/2021 13:57:24)
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -29818,9 +29818,9 @@ Handsontable.DefaultSettings = _defaultSettings.default;
 Handsontable.EventManager = _eventManager.default;
 Handsontable._getListenersCounter = _eventManager.getListenersCounter; // For MemoryLeak tests
 
-Handsontable.buildDate = "02/10/2020 10:31:42";
+Handsontable.buildDate = "09/03/2021 13:57:24";
 Handsontable.packageName = "@displayr/displayrhandsontable";
-Handsontable.version = "6.2.2+displayr.2";
+Handsontable.version = "6.2.2+displayr.3";
 var baseVersion = "";
 
 if (baseVersion) {
@@ -52191,7 +52191,8 @@ function (_BasePlugin) {
           if (textHTML && /(<table)|(<TABLE)/.test(textHTML)) {
             pastedData = (0, _utils.tableToArray)(textHTML);
           } else {
-            throw new Error('Copied data did not contain plaintext or valid html.');
+            // probably this means the clipboard is empty or contains something pretty bizarre - just ignore it
+            return;
           }
         }
       } else if (typeof ClipboardEvent === 'undefined' && typeof window.clipboardData !== 'undefined') {

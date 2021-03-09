@@ -494,7 +494,8 @@ class CopyPaste extends BasePlugin {
         if (textHTML && /(<table)|(<TABLE)/.test(textHTML)) {
           pastedData = tableToArray(textHTML);
         } else {
-          throw new Error('Copied data did not contain plaintext or valid html.');
+          // probably this means the clipboard is empty or contains something pretty bizarre - just ignore it
+          return;
         }
       }
 
