@@ -11,7 +11,7 @@ export function isNumeric(n) {
   return t == 'number' ? !isNaN(n) && isFinite(n) :
     t == 'string' ? !n.length ? false :
       n.length == 1 ? /\d/.test(n) :
-        /^\s*[+-]?\s*(?:(?:\d+(?:\.\d+)?(?:e[+-]?\d+)?)|(?:0x[a-f\d]+))\s*$/i.test(n) :
+        /^[+-]?\s*(?:(?:\d+(?:\.\d+)?(?:e[+-]?\d+)?)|(?:0x[a-f\d]+))$/i.test(n.trim()) :
       t == 'object' ? !!n && typeof n.valueOf() == 'number' && !(n instanceof Date) : false;
 }
 
